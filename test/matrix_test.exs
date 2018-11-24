@@ -20,5 +20,14 @@ defmodule MatrixTest do
       subject = Matrix.create({2, 3}, 1) 
       assert subject |> Enum.all?()
     end
+
+    test "returns an empty list when rows are less than 1" do
+      assert [] == Matrix.create({5, -1}) 
+    end
+
+    test "returns an list with empty columns when columns are less than 1" do
+      assert [[], []] == Matrix.create({-1, 2}) 
+    end
   end
 end
+
