@@ -6,4 +6,13 @@ defmodule Matrix do
     List.duplicate(default, width) 
     |> List.duplicate(height)
   end
+
+  def at(matrix, {x, y}) do
+    y_inverted = Enum.count(matrix) - 1 - y
+
+    matrix
+    |> Enum.at(y_inverted)
+    |> Enum.at(x)
+  end
 end
+

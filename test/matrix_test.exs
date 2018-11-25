@@ -29,5 +29,19 @@ defmodule MatrixTest do
       assert [[], []] == Matrix.create({-1, 2}) 
     end
   end
+
+  describe "at" do
+    test "gets element" do
+      matrix = [[1, 2],
+                [3, 4]]
+      assert 2 == Matrix.at(matrix, {1, 1})
+    end
+
+    test "returns nil if out of bounds" do
+      matrix = [[1, 2],
+                [3, 4]]
+      assert nil == Matrix.at(matrix, {100, 0})
+    end
+  end
 end
 
