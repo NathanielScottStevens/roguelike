@@ -1,4 +1,4 @@
-defmodule Matrix do
+defmodule Grid do
   def create({width, height}, default \\ nil) do
     width = if (width < 0), do: 0, else: width
     height = if (height < 0), do: 0, else: height
@@ -7,10 +7,10 @@ defmodule Matrix do
     |> List.duplicate(height)
   end
 
-  def at(matrix, {x, y}) do
-    y_inverted = Enum.count(matrix) - 1 - y
+  def at(grid, {x, y}) do
+    y_inverted = Enum.count(grid) - 1 - y
 
-    matrix
+    grid
     |> Enum.at(y_inverted)
     |> Enum.at(x)
   end

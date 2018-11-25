@@ -1,15 +1,15 @@
-defmodule MatrixTest do
+defmodule GridTest do
   use ExUnit.Case
-  doctest Matrix
+  doctest Grid
 
   describe "create" do
     test "makes correct number of rows" do
-      subject = Matrix.create({2, 3}) 
+      subject = Grid.create({2, 3}) 
       assert Enum.count(subject) == 3
     end
 
     test "makes correct number of columns" do
-      subject = Matrix.create({2, 3}) 
+      subject = Grid.create({2, 3}) 
       actual = Enum.at(subject, 0)
       |> Enum.count() 
 
@@ -17,30 +17,30 @@ defmodule MatrixTest do
     end
 
     test "sets correct default value" do
-      subject = Matrix.create({2, 3}, 1) 
+      subject = Grid.create({2, 3}, 1) 
       assert subject |> Enum.all?()
     end
 
     test "returns an empty list when rows are less than 1" do
-      assert [] == Matrix.create({5, -1}) 
+      assert [] == Grid.create({5, -1}) 
     end
 
     test "returns an list with empty columns when columns are less than 1" do
-      assert [[], []] == Matrix.create({-1, 2}) 
+      assert [[], []] == Grid.create({-1, 2}) 
     end
   end
 
   describe "at" do
     test "gets element" do
-      matrix = [[1, 2],
+      grid = [[1, 2],
                 [3, 4]]
-      assert 2 == Matrix.at(matrix, {1, 1})
+      assert 2 == Grid.at(grid, {1, 1})
     end
 
     test "returns nil if out of bounds" do
-      matrix = [[1, 2],
+      grid = [[1, 2],
                 [3, 4]]
-      assert nil == Matrix.at(matrix, {100, 0})
+      assert nil == Grid.at(grid, {100, 0})
     end
   end
 end
