@@ -33,7 +33,7 @@ defmodule GridTest do
   describe "at" do
     test "gets element" do
       grid = [[1, 2],
-                [3, 4]]
+              [3, 4]]
       assert 2 == Grid.at(grid, {1, 1})
     end
 
@@ -41,6 +41,18 @@ defmodule GridTest do
       grid = [[1, 2],
                 [3, 4]]
       assert nil == Grid.at(grid, {100, 0})
+    end
+  end
+
+  describe "replace_at" do
+    test "replaces element" do
+      grid = [[1, 2],
+              [3, 4]]
+
+      expected = [[1, 999],
+                  [3, 4]]
+
+      assert expected == Grid.replace_at(grid, {1, 1}, 999)
     end
   end
 end

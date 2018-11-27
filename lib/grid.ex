@@ -58,11 +58,16 @@ defmodule Grid do
 
   ## Examples
 
-  XXX iex> Grid.replace_at([[1, 2], [3, 4]], {1, 1}, 999)
+  iex> Grid.replace_at([[1, 2], [3, 4]], {1, 1}, 999)
   [[1, 999], [3, 4]]
   """
   def replace_at(grid, position, value)
   def replace_at(grid, {x, y}, value) do
+    y_inverted = Enum.count(grid) - 1 - y
+
+    new_row = List.replace_at(Enum.at(grid, y_inverted), x, value)
+
+    List.replace_at(grid, y_inverted, new_row)
   end
 
   @doc """
