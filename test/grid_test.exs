@@ -76,5 +76,11 @@ defmodule GridTest do
       assert not Grid.in_bounds?(grid, {2, 2})
     end
   end
+
+  describe "get_dimensions" do
+    test "gets dimensions" do
+      assert {2, 3} == Grid.get_dimensions([[1, 2], [3, 4], [5, 6]])
+    end
+  end
 end
 

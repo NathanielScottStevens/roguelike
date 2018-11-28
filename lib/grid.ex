@@ -76,6 +76,21 @@ defmodule Grid do
   end
 
   @doc """
+  Returns dimensions of grid.
+
+  ## Examples
+
+  iex> Grid.get_dimensions([[1, 2], [3, 4], [5, 6]])
+  {2, 3}
+  """
+  def get_dimensions(grid) do
+    x = Enum.at(grid, 0)
+        |> Enum.count()
+    y = Enum.count(grid)
+    {x, y}
+  end
+
+  @doc """
   Returns true if position is in bounds
 
   ## Examples
