@@ -88,5 +88,24 @@ defmodule GridTest do
       assert {2, 3} == Grid.get_dimensions([[1, 2], [3, 4], [5, 6]])
     end
   end
+
+  describe "slice" do
+    test "returns slice of grid" do
+      grid = [[1, 2, 3], [3, 4, 5]]
+      expected = [[1, 2], [3, 4]]
+      assert expected == Grid.slice(grid, {0, 0}, {2, 2})
+    end
+
+    test "when amount is greater than number of elements returns to end of list" do
+      grid = [[1, 2, 3], [3, 4, 5]]
+      assert grid == Grid.slice(grid, {0, 0}, {5, 5})
+    end
+
+    test "when given an out of bound start position returns empty grid" do
+      grid = [[1, 2, 3], [3, 4, 5]]
+      expected = [[1, 2], [3, 4]]
+      assert expected == Grid.slice(grid, {0, 0}, {2, 2})
+    end
+  end
 end
 

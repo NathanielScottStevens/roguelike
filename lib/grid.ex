@@ -111,15 +111,29 @@ defmodule Grid do
   @doc """
   Returns a subset of the given grid.
 
-  * `max` and `min` are inclusive
-  * `max` and `min` are bounded by 0 and the grid's size.
+  If start is out of bounds, it returns [].
+
+  If amount is greater than enumerable length, it returns as many elements as
+  possible. If amount is zero, then [] is returned.
 
   ## Examples
 
-  XXX iex> Grid.slice([[1, 2, 3], [3, 4, 5]], {0, 0}, {1, 1})
+  iex> Grid.slice([[1, 2, 3], [3, 4, 5]], {0, 0}, {2, 2})
   [[1, 2], [3, 4]]
+
+  # amount greater than the number of elements
+  iex> Grid.slice([[1, 2, 3], [3, 4, 5]], {0, 0}, {5, 5})
+  [[1, 2, 3], [3, 4, 5]]
+
+  # out of bound start position
+  iex> Grid.slice([[1, 2, 3], [3, 4, 5]], {9, 9}, {2, 2})
+  []
   """
-  def slice(grid, min_pos, max_pos) do
+  def slice(grid, min_pos, size)
+  def slice(grid, {min_x, min_y}, {width, height}) do
+    grid
+    |> Enum.slice(min_y, height)
+    |> Enum.map(fn row -> Enum.slice(row, min_x, width) end)
   end
 
   @doc """
