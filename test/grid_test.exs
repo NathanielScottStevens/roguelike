@@ -54,6 +54,27 @@ defmodule GridTest do
 
       assert expected == Grid.replace_at(grid, {1, 1}, 999)
     end
+
+    test "returns grid unmodified when position is out of bounds" do
+      grid = [[1, 2],
+              [3, 4]]
+
+      assert grid == Grid.replace_at(grid, {100, 100}, 999)
+    end
+  end
+
+  describe "in_bounds?" do
+    test "returns true if in bounds" do
+      grid = Grid.create(2, 2)
+
+      assert Grid.in_bounds?(grid, {1, 1})
+    end
+
+    test "returns false if out of bounds" do
+      grid = Grid.create(2, 2)
+
+      assert not Grid.in_bounds?(grid, {2, 2})
+    end
   end
 end
 

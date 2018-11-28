@@ -63,11 +63,29 @@ defmodule Grid do
   """
   def replace_at(grid, position, value)
   def replace_at(grid, {x, y}, value) do
-    y_inverted = Enum.count(grid) - 1 - y
+    if in_bounds?(grid, {x, y}) do
+      y_inverted = Enum.count(grid) - 1 - y
 
-    new_row = List.replace_at(Enum.at(grid, y_inverted), x, value)
+      new_row = Enum.at(grid, y_inverted)
+                |> List.replace_at(x, value)
 
-    List.replace_at(grid, y_inverted, new_row)
+      List.replace_at(grid, y_inverted, new_row)
+    else
+      grid
+    end
+  end
+
+  @doc """
+  Returns true if position is in bounds
+
+  ## Examples
+
+  iex> Grid.in_bounds?([[1, 2], [3, 4]], {0, 0})
+  true
+  """
+  def in_bounds?(grid, position)
+  def in_bounds?(grid, {x, y}) do
+    y < Enum.count(grid) and x < Enum.count(Enum.at(grid, 0)) 
   end
 
   @doc """
