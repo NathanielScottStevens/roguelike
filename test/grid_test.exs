@@ -70,10 +70,16 @@ defmodule GridTest do
       assert Grid.in_bounds?(grid, {1, 1})
     end
 
-    test "returns false if out of bounds" do
+    test "returns false if greater than length" do
       grid = Grid.create(2, 2)
 
       assert not Grid.in_bounds?(grid, {2, 2})
+    end
+
+    test "returns false if less than 0" do
+      grid = Grid.create(2, 2)
+
+      assert not Grid.in_bounds?(grid, {-1, -1})
     end
   end
 

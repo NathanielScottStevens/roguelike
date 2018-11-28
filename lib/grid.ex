@@ -91,7 +91,8 @@ defmodule Grid do
   end
 
   @doc """
-  Returns true if position is in bounds
+  Returns true if position is greater than or equal to 0
+  and less than the axis' length.
 
   ## Examples
 
@@ -100,7 +101,11 @@ defmodule Grid do
   """
   def in_bounds?(grid, position)
   def in_bounds?(grid, {x, y}) do
-    y < Enum.count(grid) and x < Enum.count(Enum.at(grid, 0)) 
+    {x_size, y_size} = get_dimensions(grid)
+    x_in_bounds = x >= 0 and x < x_size
+    y_in_bounds = y >= 0 and y < y_size
+
+    x_in_bounds and y_in_bounds
   end
 
   @doc """
