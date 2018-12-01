@@ -107,5 +107,11 @@ defmodule GridTest do
       assert expected == Grid.slice(grid, {0, 0}, {2, 2})
     end
   end
+
+  describe "to_string" do
+    test "returns string separated by newlines" do
+      assert "12\n34\n" == Grid.to_string([[1, 2], [3, 4]])
+    end
+  end
 end
 

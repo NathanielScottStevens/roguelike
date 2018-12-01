@@ -143,10 +143,14 @@ defmodule Grid do
 
   ## Examples
 
-  XXX iex> Grid.to_string([[1, 2], [3, 4]])
-  "12\n34"
+  iex> Grid.to_string([[1, 2], [3, 4]])
+  "12\n34\n"
   """
   def to_string(grid) do
+    grid
+    |> Enum.map(fn row -> row ++ ["\n"] end)
+    |> Enum.concat
+    |> Enum.join
   end
 
   @doc """
