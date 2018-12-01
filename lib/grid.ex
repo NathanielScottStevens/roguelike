@@ -153,17 +153,20 @@ defmodule Grid do
     |> Enum.join
   end
 
-  @doc """
+  @doc ~S"""
   Creates grid from string.
 
   * Rows are delimited by newline characters.
 
   ## Examples
 
-  XXX iex> Grid.from_string("12\n34")
-  [[1, 2], [3, 4]]
+  iex> Grid.from_string("ab\ncd")
+  [["a", "b"], ["c", "d"]]
   """
   def from_string(string) do
+    string
+    |> String.split("\n")
+    |> Enum.map(&String.graphemes/1)
   end
 end
 
