@@ -2,12 +2,14 @@ defmodule Roguelike.Tiles do
   use GenServer
 
   def init(_) do
-    image_dir = :code.priv_dir(:roguelike) |> Path.join("/static/images/")
+    image_dir = :code.priv_dir(:roguelike) |> Path.join("/static/images/tiles")
     
     state =
       %{}
       |> add_tile("line")
       |> add_tile("corner")
+      |> add_tile("grass")
+      |> add_tile("path")
 
     {:ok, state}
   end
@@ -30,6 +32,14 @@ defmodule Roguelike.Tiles do
 
   def handle_call(:corner, _from, state) do
     {:reply, state.corner, state}
+  end
+
+  def handle_call(:grass, _from, state) do
+    {:reply, state.grass, state}
+  end
+
+  def handle_call(:path, _from, state) do
+    {:reply, state.path, state}
   end
 
   def start_link(_) do
