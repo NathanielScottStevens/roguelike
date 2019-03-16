@@ -22,12 +22,12 @@ defmodule Grid do
 
   iex> Grid.create(2, 2, 5)
   [[5, 5], [5, 5]]
-  """ 
+  """
   def create(width, height, default \\ nil) do
-    width = if (width < 0), do: 0, else: width
-    height = if (height < 0), do: 0, else: height
+    width = if width < 0, do: 0, else: width
+    height = if height < 0, do: 0, else: height
 
-    List.duplicate(default, width) 
+    List.duplicate(default, width)
     |> List.duplicate(height)
   end
 
@@ -40,9 +40,10 @@ defmodule Grid do
   ## Examples
 
   iex> Grid.at([[1, 2], [3, 4]], {1, 1})
-  2 
+  2
   """
   def at(grid, position)
+
   def at(grid, {x, y}) do
     y_inverted = Enum.count(grid) - 1 - y
 
@@ -62,12 +63,14 @@ defmodule Grid do
   [[1, 999], [3, 4]]
   """
   def replace_at(grid, position, value)
+
   def replace_at(grid, {x, y}, value) do
     if in_bounds?(grid, {x, y}) do
       y_inverted = Enum.count(grid) - 1 - y
 
-      new_row = Enum.at(grid, y_inverted)
-                |> List.replace_at(x, value)
+      new_row =
+        Enum.at(grid, y_inverted)
+        |> List.replace_at(x, value)
 
       List.replace_at(grid, y_inverted, new_row)
     else
@@ -84,8 +87,10 @@ defmodule Grid do
   {2, 3}
   """
   def get_dimensions(grid) do
-    x = Enum.at(grid, 0)
-        |> Enum.count()
+    x =
+      Enum.at(grid, 0)
+      |> Enum.count()
+
     y = Enum.count(grid)
     {x, y}
   end
@@ -100,6 +105,7 @@ defmodule Grid do
   true
   """
   def in_bounds?(grid, position)
+
   def in_bounds?(grid, {x, y}) do
     {x_size, y_size} = get_dimensions(grid)
     x_in_bounds = x >= 0 and x < x_size
@@ -130,6 +136,7 @@ defmodule Grid do
   []
   """
   def slice(grid, min_pos, size)
+
   def slice(grid, {min_x, min_y}, {width, height}) do
     grid
     |> Enum.slice(min_y, height)
@@ -149,8 +156,8 @@ defmodule Grid do
   def to_string(grid) do
     grid
     |> Enum.map(fn row -> row ++ ["\n"] end)
-    |> Enum.concat
-    |> Enum.join
+    |> Enum.concat()
+    |> Enum.join()
   end
 
   @doc ~S"""
@@ -165,8 +172,32 @@ defmodule Grid do
   """
   def from_string(string) do
     string
+    |> String.trim()
     |> String.split("\n")
     |> Enum.map(&String.graphemes/1)
   end
-end
 
+  @doc ~S"""
+  Creates grid from template.
+
+  * Rows are delimited by newline characters.
+  * If a value is not provided, nil will be used
+
+  ## Examples
+
+  iex> Grid.from_template("ab\ncd", a: 1, b: 2, c: 3, d: 4)
+  [[1, 2], [3, 4]]
+
+  iex> Grid.from_template("ab\ncd", a: 1, c: 3)
+  [[1, nil], [3, nil]]
+  """
+  def from_template(template, values) do
+    template
+    |> from_string()
+    |> Enum.map(fn row ->
+      Enum.map(row, fn value ->
+        values[String.to_atom(value)]
+      end)
+    end)
+  end
+end

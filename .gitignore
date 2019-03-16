@@ -22,3 +22,5 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 roguelike-*.tar
 
+# Assets
+phoenix_roguelike/assets/node_modules/
